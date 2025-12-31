@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cazapalabras - Spanish Hex Word Search</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>Cazapalabras</h1>
+    </header>
+
+    <main class="game-container">
+        <div class="stats-panel">
+            <div class="stat-item">
+                <span class="stat-label">Score</span>
+                <span id="score-val" class="stat-value">0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Found</span>
+                <span id="found-val" class="stat-value">0/0</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Mode</span>
+                <span id="current-mode-label" class="stat-value">Translate</span>
+            </div>
+        </div>
+
+        <div class="control-panel">
+            <div class="word-list-card">
+                <div class="mode-switcher">
+                    <button id="mode-translate" class="mode-btn active">Spanish->English</button>
+                    <button id="mode-interpret" class="mode-btn">English->Spanish</button>
+                    <button id="mode-chat" class="mode-btn">Chat</button>
+                </div>
+            </div>
+
+            <div class="word-list-card" style="flex: 1;">
+                <div id="category-selection" class="category-selection">
+                    <!-- Dynamic categories -->
+                </div>
+            </div>
+        </div>
+
+        <div class="main-layout">
+            <div class="grid-container">
+                <div id="hex-grid" class="hex-grid">
+                    <!-- Hexagons will be injected here -->
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="word-list-card">
+                    <h3>Words to Find (click to speak)</h3>
+                    <div id="word-list" class="word-list">
+                        <!-- Words will be injected here -->
+                    </div>
+                    <button id="new-game-btn" class="mode-btn"
+                        style="margin-top: 1rem; background: var(--hex-found); color: white;">Next Level</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
