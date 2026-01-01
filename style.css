@@ -13,7 +13,8 @@
 
 @media (max-width: 600px) {
     :root {
-        --hex-size: 11px;
+        --hex-size: 16px;
+        /* Increased from 11px */
     }
 }
 
@@ -164,6 +165,17 @@ h1 {
     .grid-container {
         padding: 1rem 0.5rem;
         border-radius: 1rem;
+        width: 100%;
+        overflow: auto;
+        /* Allow scrolling */
+        -webkit-overflow-scrolling: touch;
+        touch-action: auto;
+        /* Allow browser panning in Move mode */
+    }
+
+    .grid-container.selecting {
+        touch-action: none;
+        /* Block panning while selecting */
     }
 }
 
@@ -394,6 +406,40 @@ h1 {
     color: white;
 }
 
+.interaction-switcher {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.4rem;
+    border-radius: 0.8rem;
+    margin-top: 1rem;
+}
+
+.interaction-btn {
+    flex: 1;
+    padding: 0.6rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.interaction-btn.active {
+    background: var(--accent-secondary);
+    color: white;
+}
+
+.interaction-btn .icon {
+    font-size: 1.1rem;
+}
+
 .prompt-area {
     background: rgba(139, 92, 246, 0.1);
     padding: 1rem;
@@ -436,25 +482,32 @@ h1 {
 
     .word-list {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.5rem;
-        max-height: 150px;
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 columns for even more space */
+        gap: 0.4rem;
+        max-height: 120px;
         overflow-y: auto;
     }
 
     .word-item {
-        padding: 0.4rem 0.6rem;
-        font-size: 0.8rem;
+        padding: 0.3rem 0.5rem;
+        font-size: 0.75rem;
         margin-bottom: 0;
+        justify-content: center;
+    }
+
+    .word-item .hint-btn {
+        display: none;
+        /* Hide hint on mobile word list to save space */
     }
 
     .word-list-card {
-        padding: 1rem;
+        padding: 0.75rem;
     }
 
     .word-list-card h3 {
-        font-size: 0.9rem;
-        margin-bottom: 0.5rem;
+        display: none;
+        /* Hide title to save space */
     }
 
     #new-game-btn {

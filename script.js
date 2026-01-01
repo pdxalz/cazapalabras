@@ -349,6 +349,7 @@ class Cazapalabras {
         this.currentSelection = [];
         this.selectionPath = [];
         this.selectedCategories = []; // Categories selected FOR THE CURRENT MODE
+        this.interactionMode = 'select'; // 'select' or 'move'
 
         this.init();
     }
@@ -382,11 +383,25 @@ class Cazapalabras {
         document.getElementById('mode-chat').onclick = () => this.switchMode('chat');
         document.getElementById('new-game-btn').onclick = () => this.startNewGame();
 
+        document.getElementById('interaction-select').onclick = () => this.switchInteractionMode('select');
+        document.getElementById('interaction-move').onclick = () => this.switchInteractionMode('move');
+
         // Mouse events for selection
         window.addEventListener('mouseup', () => this.endSelection());
 
         // Touch events for selection
-        window.addEventListener('touchend', () => this.endSelection(), { passive: false });
+        window.addEventListener('touchend', () => {
+            if (this.isSelecting) {
+                this.gridElement.classList.remove('selecting');
+                this.endSelection();
+            }
+        }, { passive: false });
+    }
+
+    switchInteractionMode(mode) {
+        this.interactionMode = mode;
+        document.getElementById('interaction-select').classList.toggle('active', mode === 'select');
+        document.getElementById('interaction-move').classList.toggle('active', mode === 'move');
     }
 
     switchMode(mode) {
@@ -595,11 +610,14 @@ class Cazapalabras {
 
                 // Touch events
                 hex.addEventListener('touchstart', (e) => {
+                    if (this.interactionMode === 'move') return; // Let browser handle scroll
                     e.preventDefault();
+                    this.gridElement.classList.add('selecting');
                     this.startSelection(r, c, hex);
                 }, { passive: false });
 
                 hex.addEventListener('touchmove', (e) => {
+                    if (this.interactionMode === 'move') return;
                     e.preventDefault();
                     const touch = e.touches[0];
                     const target = document.elementFromPoint(touch.clientX, touch.clientY);
