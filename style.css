@@ -177,6 +177,17 @@ h1 {
         touch-action: none;
         /* Block panning while selecting */
     }
+
+    .hex-grid {
+        justify-content: flex-start !important;
+        width: max-content;
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .hex-row {
+        justify-content: flex-start !important;
+    }
 }
 
 /* Hex Grid Layout */
