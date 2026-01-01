@@ -384,6 +384,9 @@ class Cazapalabras {
 
         // Mouse events for selection
         window.addEventListener('mouseup', () => this.endSelection());
+
+        // Touch events for selection
+        window.addEventListener('touchend', () => this.endSelection(), { passive: false });
     }
 
     switchMode(mode) {
@@ -589,6 +592,23 @@ class Cazapalabras {
 
                 hex.addEventListener('mousedown', (e) => this.startSelection(r, c, hex));
                 hex.addEventListener('mouseenter', (e) => this.updateSelection(r, c, hex));
+
+                // Touch events
+                hex.addEventListener('touchstart', (e) => {
+                    e.preventDefault();
+                    this.startSelection(r, c, hex);
+                }, { passive: false });
+
+                hex.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    const touch = e.touches[0];
+                    const target = document.elementFromPoint(touch.clientX, touch.clientY);
+                    if (target && target.classList.contains('hexagon')) {
+                        const tr = parseInt(target.dataset.r);
+                        const tc = parseInt(target.dataset.c);
+                        this.updateSelection(tr, tc, target);
+                    }
+                }, { passive: false });
 
                 this.grid[r][c].element = hex;
                 rowDiv.appendChild(hex);
