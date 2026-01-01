@@ -13,8 +13,8 @@
 
 @media (max-width: 600px) {
     :root {
-        --hex-size: 16px;
-        /* Increased from 11px */
+        --hex-size: 32px;
+        /* Doubled from 16px */
     }
 }
 
